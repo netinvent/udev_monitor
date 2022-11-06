@@ -17,15 +17,14 @@ Versioning semantics:
 __intname__ = "udev_monitor"
 __author__ = "Orsiris de Jong"
 __copyright__ = "Copyright (C) 2022 Orsiris de Jong"
-__description__ = (
-    "udev_monitor triggers action on plugged in devices"
-)
+__description__ = "udev_monitor triggers action on plugged in devices"
 __licence__ = "BSD 3 Clause"
-__version__ = "1.0.0"
-__build__ = "2022102501"
+__version__ = "1.1.0"
+__build__ = "2022110601"
 __compat__ = "python3.6+"
 
 
+import sys
 from typing import Callable, List
 from argparse import ArgumentParser
 from pyudev import Context, Monitor
@@ -52,7 +51,11 @@ def load_config(config_file: str):
 
 
 def monitor_udev(
-    devices_to_monitor: List[str], callback: Callable, action: str, filters: List[str]
+    devices_to_monitor: List[str],
+    udev_actions: List,
+    callback: Callable,
+    action: str,
+    filters: List[str],
 ):
 
     logger.info(
@@ -68,7 +71,7 @@ def monitor_udev(
             monitor.filter_by(subsystem=filter)
 
     for device in iter(monitor.poll, None):
-        if device.action == "add":
+        if device.action in udev_actions:
             """
             Plugging a USB device may trigger multiple add actions here, eg a 4G modem would add multiple ttyUSB ports and a cdc-wdm port
             We'll launch callback_no_flood that will only execute callback once per CALLBACK_FLOOD_TIMEOUT
@@ -140,6 +143,14 @@ if __name__ == "__main__":
     )
 
     parser.add_argument(
+        "-u",
+        "--udev-action",
+        type=str,
+        default="add, change, online",
+        help="udev action to monitor. Usual actions are 'add', 'remove', 'change', 'online', 'offline'. Defaults to 'add, change, online'",
+    )
+
+    parser.add_argument(
         "-f",
         "--filters",
         type=str,
@@ -203,6 +214,10 @@ if __name__ == "__main__":
             action = conf["UDEV_MONITOR"]["action"]
         except KeyError:
             pass
+        try:
+            udev_actions = conf["UDEV_MONITOR"]["udev_actions"]
+        except KeyError:
+            pass
     else:
         if args.devices:
             devices = args.devices
@@ -212,10 +227,23 @@ if __name__ == "__main__":
             action = args.action
         if args.timeout:
             TIMEOUT = args.timeout
+        if args.udev_actions:
+            udev_actions = args.udev_actions
 
         if devices:
             devices = [device.strip() for device in devices.split(",")]
         if filters:
             filters = [filter.strip() for filter in filters.split(",")]
+        if udev_actions:
+            udev_actions = [
+                udev_action.strip() for udev_action in udev_actions.split(",")
+            ]
 
-    monitor_udev(devices, callback, action, filters)
+    try:
+        monitor_udev(devices, udev_actions, callback, action, filters)
+    except KeyboardInterrupt:
+        logger.info("Program interrupted by CTRL+C")
+        sys.exit(3)
+    except Exception as exc:
+        logger.error("Program failed with error %s" % exc)
+        logger.erro("Trace:", exc_info=True)
