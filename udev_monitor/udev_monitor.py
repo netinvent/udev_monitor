@@ -20,7 +20,7 @@ __copyright__ = "Copyright (C) 2022 Orsiris de Jong"
 __description__ = "udev_monitor triggers action on plugged in devices"
 __licence__ = "BSD 3 Clause"
 __version__ = "1.1.0"
-__build__ = "2022110601"
+__build__ = "2022110602"
 __compat__ = "python3.6+"
 
 
@@ -88,8 +88,8 @@ def monitor_udev(
                     )
                 if found_device in devices_to_monitor:
                     logger.info(
-                        "Calling {} with arguments {}".format(
-                            callback.__name__, found_device
+                        "Executing callback function with device id {} as argument.".format(
+                            found_device
                         )
                     )
                     callback(found_device, action)
@@ -125,7 +125,7 @@ def callback(device, action):
             logger.error(output)
         else:
             logger.info("Command executed succesfully. Output was:")
-            logger.info("output")
+            logger.info(output)
     else:
         logger.info("No action configured.")
 
@@ -144,7 +144,7 @@ if __name__ == "__main__":
 
     parser.add_argument(
         "-u",
-        "--udev-action",
+        "--udev-actions",
         type=str,
         default="add, change, online",
         help="udev action to monitor. Usual actions are 'add', 'remove', 'change', 'online', 'offline'. Defaults to 'add, change, online'",
@@ -246,4 +246,4 @@ if __name__ == "__main__":
         sys.exit(3)
     except Exception as exc:
         logger.error("Program failed with error %s" % exc)
-        logger.erro("Trace:", exc_info=True)
+        logger.error("Trace:", exc_info=True)
