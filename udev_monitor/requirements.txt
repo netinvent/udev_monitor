@@ -1,0 +1,3 @@
+command_runner>=1.4.0
+pyudev
+ofunctions.threading>=1.1.0
