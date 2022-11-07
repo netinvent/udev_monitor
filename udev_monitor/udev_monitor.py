@@ -150,7 +150,7 @@ if __name__ == "__main__":
         "-u",
         "--udev-events",
         type=str,
-        default="add, change, online",
+        default=None,
         help="udev event to monitor. Usual events are 'add', 'remove', 'change', 'online', 'offline'. Defaults to 'add, change, online'",
     )
 
@@ -199,6 +199,7 @@ if __name__ == "__main__":
     devices = None
     filters = None
     action = None
+    udev_events = "add, change, online"
 
     if args.config_file:
         conf = load_config(args.config_file)
@@ -225,9 +226,9 @@ if __name__ == "__main__":
         except KeyError:
             pass
         try:
-            udev_events = conf["UDEV_MONITOR"]["udev_events"]
-            if len(udev_events) == 0:
-                udev_events = None
+            conf_udev_events = conf["UDEV_MONITOR"]["udev_events"]
+            if len(conf_udev_events) > 0:
+                udev_events = conf_udev_events
         except KeyError:
             pass
     else:
