@@ -116,7 +116,11 @@ def callback(device, action):
 
         cmd = "{} {}".format(action, device)
         logger.info("Executing comamnd {}".format(cmd))
-        exit_code, output = command_runner(cmd, timeout=TIMEOUT, method="poller")
+        try:
+            timeout = float(TIMEOUT)
+        except TypeError:
+            timeout = 3600
+        exit_code, output = command_runner(cmd, timeout=timeout, method="poller")
         if exit_code != 0:
             logger.error(
                 "Erorr while executing action for device {}. Exit code: {}, output was:".format(
