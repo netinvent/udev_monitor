@@ -248,3 +248,4 @@ if __name__ == "__main__":
     except Exception as exc:
         logger.error("Program failed with error %s" % exc)
         logger.error("Trace:", exc_info=True)
+        sys.exit(200)
