@@ -19,8 +19,8 @@ __author__ = "Orsiris de Jong"
 __copyright__ = "Copyright (C) 2022 Orsiris de Jong"
 __description__ = "udev_monitor triggers action on plugged in devices"
 __licence__ = "BSD 3 Clause"
-__version__ = "1.2.1"
-__build__ = "2022110604"
+__version__ = "1.2.2"
+__build__ = "2022110605"
 __compat__ = "python3.6+"
 
 
@@ -243,12 +243,12 @@ if __name__ == "__main__":
         if args.udev_events:
             udev_events = args.udev_events
 
-        if devices:
-            devices = [device.strip() for device in devices.split(",")]
-        if filters:
-            filters = [filter.strip() for filter in filters.split(",")]
-        if udev_events:
-            udev_events = [udev_event.strip() for udev_event in udev_events.split(",")]
+    if devices:
+        devices = [device.strip() for device in devices.split(",")]
+    if filters:
+        filters = [filter.strip() for filter in filters.split(",")]
+    if udev_events:
+        udev_events = [udev_event.strip() for udev_event in udev_events.split(",")]
 
     try:
         monitor_udev(devices, udev_events, callback, action, filters)
