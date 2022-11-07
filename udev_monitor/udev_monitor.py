@@ -39,7 +39,6 @@ from ofunctions.threading import threaded, no_flood
 from ofunctions.logger_utils import logger_get_logger
 from time import sleep
 from datetime import datetime
-import threading
 from configparser import ConfigParser
 
 logger = logger_get_logger("/var/log/udev_monitor.log")
