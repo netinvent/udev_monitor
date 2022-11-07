@@ -243,9 +243,7 @@ if __name__ == "__main__":
         if filters:
             filters = [filter.strip() for filter in filters.split(",")]
         if udev_events:
-            udev_events = [
-                udev_event.strip() for udev_event in udev_events.split(",")
-            ]
+            udev_events = [udev_event.strip() for udev_event in udev_events.split(",")]
 
     try:
         monitor_udev(devices, udev_events, callback, action, filters)
