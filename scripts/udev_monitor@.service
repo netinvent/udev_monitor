@@ -1,0 +1,13 @@
+[Unit]
+Description=udev event monitor
+After=local-fs.target
+Wants=local-fs.target
+
+[Install]
+WantedBy=multi-user.target
+
+[Service]
+Type=Simple
+ExecStart=/usr/local/bin/udev_monitor.py --config /etc/udev_monitor/%1
+Restart=always
+RestartSec=60s

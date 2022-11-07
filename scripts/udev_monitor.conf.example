@@ -1,0 +1,6 @@
+[UDEV_MONITOR]
+devices = 1199:9071
+filters = usb
+action = /root/attach.sh
+udev_events = add
+timeout = 300
