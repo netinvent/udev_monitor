@@ -57,7 +57,7 @@ def load_config(config_file: str):
 
 def monitor_udev(
     devices_to_monitor: List[str],
-    udev_actions: List,
+    udev_events: List,
     callback: Callable,
     action: str,
     filters: List[str],
@@ -76,7 +76,7 @@ def monitor_udev(
             monitor.filter_by(subsystem=filter)
 
     for device in iter(monitor.poll, None):
-        if device.action in udev_actions:
+        if device.action in udev_events:
             """
             Plugging a USB device may trigger multiple add actions here, eg a 4G modem would add multiple ttyUSB ports and a cdc-wdm port
             We'll launch callback_no_flood that will only execute callback once per CALLBACK_FLOOD_TIMEOUT
@@ -223,7 +223,7 @@ if __name__ == "__main__":
         except KeyError:
             pass
         try:
-            udev_actions = conf["UDEV_MONITOR"]["udev_actions"]
+            udev_events = conf["UDEV_MONITOR"]["udev_events"]
         except KeyError:
             pass
     else:
@@ -235,20 +235,20 @@ if __name__ == "__main__":
             action = args.action
         if args.timeout:
             TIMEOUT = args.timeout
-        if args.udev_actions:
-            udev_actions = args.udev_actions
+        if args.udev_events:
+            udev_events = args.udev_events
 
         if devices:
             devices = [device.strip() for device in devices.split(",")]
         if filters:
             filters = [filter.strip() for filter in filters.split(",")]
-        if udev_actions:
-            udev_actions = [
-                udev_action.strip() for udev_action in udev_actions.split(",")
+        if udev_events:
+            udev_events = [
+                udev_event.strip() for udev_event in udev_events.split(",")
             ]
 
     try:
-        monitor_udev(devices, udev_actions, callback, action, filters)
+        monitor_udev(devices, udev_events, callback, action, filters)
     except KeyboardInterrupt:
         logger.info("Program interrupted by CTRL+C")
         sys.exit(3)
