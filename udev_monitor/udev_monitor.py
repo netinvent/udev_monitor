@@ -36,14 +36,13 @@ except ModuleNotFoundError:
 import logging
 from command_runner import command_runner
 from ofunctions.threading import threaded, no_flood
+from ofunctions.logger_utils import logger_get_logger
 from time import sleep
 from datetime import datetime
 import threading
 from configparser import ConfigParser
 
-logger = logging.getLogger()
-logger.setLevel(logging.INFO)
-logger.addHandler(logging.StreamHandler())
+logger = logger_get_logger("/var/log/udev_monitor.log")
 
 TIMEOUT = 3600  # Default command timeout
 WAIT_BEFORE_CALLBACK = 2  # How many seconds before we launch our callback, so the device driver for plugged in device is properly loaded
