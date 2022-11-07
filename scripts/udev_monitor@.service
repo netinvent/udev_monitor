@@ -8,6 +8,6 @@ WantedBy=multi-user.target
 
 [Service]
 Type=Simple
-ExecStart=/usr/local/bin/udev_monitor.py --config /etc/udev_monitor/%1
+ExecStart=/usr/local/bin/udev_monitor.py --config /etc/udev_monitor/%i
 Restart=always
 RestartSec=60s
