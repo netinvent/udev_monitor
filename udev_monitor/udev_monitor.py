@@ -204,10 +204,14 @@ if __name__ == "__main__":
         conf = load_config(args.config_file)
         try:
             devices = conf["UDEV_MONITOR"]["devices"]
+            if len(devices) == 0:
+                devices = None
         except KeyError:
             devices = None
         try:
             filters = conf["UDEV_MONITOR"]["filters"]
+            if len(filters) == 0:
+                filters = None
         except KeyError:
             devices = None
         try:
@@ -216,10 +220,14 @@ if __name__ == "__main__":
             pass
         try:
             action = conf["UDEV_MONITOR"]["action"]
+            if len(action) == 0:
+                action = None
         except KeyError:
             pass
         try:
             udev_events = conf["UDEV_MONITOR"]["udev_events"]
+            if len(udev_events) == 0:
+                udev_events = None
         except KeyError:
             pass
     else:
