@@ -56,7 +56,7 @@ timeout = 3600
 
 Example:
 ```
-cp scripts/udev_monitor@.service to /etc/systemd/system
+cp scripts/udev_monitor\@.service to /etc/systemd/system
 systemctl daemon-reload
 
 mkdir /etc/udev_monitor
