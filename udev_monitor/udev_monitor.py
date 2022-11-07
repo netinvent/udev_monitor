@@ -25,9 +25,14 @@ __compat__ = "python3.6+"
 
 
 import sys
+import os
 from typing import Callable, List
 from argparse import ArgumentParser
-from pyudev import Context, Monitor
+
+try:
+    from pyudev import Context, Monitor
+except ModuleNotFoundError:
+    print("Cannot load pyudev module")
 import logging
 from command_runner import command_runner
 from ofunctions.threading import threaded, no_flood
@@ -131,6 +136,9 @@ def callback(device, action):
 
 
 if __name__ == "__main__":
+    if os.name == "nt":
+        print("This program is designed to run on Linux with udev only.")
+        sys.exit(4)
     parser = ArgumentParser(prog="udev_monitor.py", description="Udev hook")
 
     parser.add_argument(
