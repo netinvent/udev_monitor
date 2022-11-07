@@ -19,8 +19,8 @@ __author__ = "Orsiris de Jong"
 __copyright__ = "Copyright (C) 2022 Orsiris de Jong"
 __description__ = "udev_monitor triggers action on plugged in devices"
 __licence__ = "BSD 3 Clause"
-__version__ = "1.1.0"
-__build__ = "2022110602"
+__version__ = "1.1.1"
+__build__ = "2022110603"
 __compat__ = "python3.6+"
 
 
@@ -152,10 +152,10 @@ if __name__ == "__main__":
 
     parser.add_argument(
         "-u",
-        "--udev-actions",
+        "--udev-events",
         type=str,
         default="add, change, online",
-        help="udev action to monitor. Usual actions are 'add', 'remove', 'change', 'online', 'offline'. Defaults to 'add, change, online'",
+        help="udev event to monitor. Usual events are 'add', 'remove', 'change', 'online', 'offline'. Defaults to 'add, change, online'",
     )
 
     parser.add_argument(
