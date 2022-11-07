@@ -64,8 +64,8 @@ def monitor_udev(
 ):
 
     logger.info(
-        "Setting up udev monitor for devices: {} with filters: {}".format(
-            devices_to_monitor, filters
+        "Setting up udev events {} for devices {} with filters {} and action {}".format(
+            udev_events, devices_to_monitor, filters, action
         )
     )
 
