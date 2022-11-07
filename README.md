@@ -5,7 +5,7 @@
 
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 [![Percentage of issues still open](http://isitmaintained.com/badge/open/netinvent/udev_monitor.svg)](http://isitmaintained.com/project/netinvent/udev_monitor "Percentage of issues still open")
-[![linux-tests](https://github.com/netinvent/udev_monitor/actions/workflows/linux.yaml/badge.svg)](https://github.com/netinvent/udev_monitor/actions/workflows/linux.yaml)
+[![linux-tests](https://github.com/netinvent/udev_monitor/actions/workflows/pylint-linux.yaml/badge.svg)](https://github.com/netinvent/udev_monitor/actions/workflows/pylint-linux.yaml)
 [![GitHub Release](https://img.shields.io/github/release/netinvent/udev_monitor.svg?label=Latest)](https://github.com/netinvent/udev_monitor/releases/latest)
 
 
