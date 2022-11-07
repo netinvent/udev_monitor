@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#! /usr/bin/env python3
 #  -*- coding: utf-8 -*-
 #
 # This file is part of udev_monitor
@@ -19,8 +19,8 @@ __author__ = "Orsiris de Jong"
 __copyright__ = "Copyright (C) 2022 Orsiris de Jong"
 __description__ = "udev_monitor triggers action on plugged in devices"
 __licence__ = "BSD 3 Clause"
-__version__ = "1.1.1"
-__build__ = "2022110603"
+__version__ = "1.2.0"
+__build__ = "2022110604"
 __compat__ = "python3.6+"
 
 
@@ -91,12 +91,7 @@ def monitor_udev(
                     logger.info(
                         "Device {} added as {}".format(found_device, device.device_node)
                     )
-                if found_device in devices_to_monitor:
-                    logger.info(
-                        "Executing callback function with device id {} as argument.".format(
-                            found_device
-                        )
-                    )
+                if not devices_to_monitor or found_device in devices_to_monitor:
                     callback(found_device, action)
             else:
                 logger.debug("Added device: {}".format(device.device_node))

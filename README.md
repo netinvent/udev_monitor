@@ -1,6 +1,6 @@
 # udev_monitor
 # Monitor linux udev events and execute actions on detection
-# Designed to execute actions when USB devices are plugged-in / removed
+## Designed to execute actions when USB devices are plugged-in / removed
 
 
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
@@ -10,7 +10,7 @@
 
 
 udev_monitor works with Linux udev and monitors it's events.
-Upon a specific event for a given device, it will execute an action.
+Upon a specific event for a given device (in VENDOR_ID:PRODUCT_ID format), it will execute an action.
 
 Setup:
 ```
@@ -27,6 +27,7 @@ Full usage:
 ```
 --devices           List of comma separated devices to monitor. Example:
                     '0665:5161, 8086:1234'
+                    If no devices are given, all devices are monitored.
 --udev-actions      List of udev events which should trigger and action
                     Valid actions are: 'add', 'remove', 'change', 'online', 'offline'. Defaults to 'add, change, online'
 --filters           List of comma separated udev monitor filters. Filters are applied with OR logic. Example:
