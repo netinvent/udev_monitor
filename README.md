@@ -18,7 +18,7 @@ pip install udev_monitor
 ```
 
 Example:
-Run script `/usr/local/bin/myscript.sh` everytime USB device 0665:5161 is added or removed
+Run script `/usr/local/bin/myscript.sh` with argument `0665:5161` everytime USB device with vendor id 0665 and product id 5161 is added or removed
 ```
 udev_monitor.py --devices 0665:5161 --udev-actions add,remove --filters=usb --action /usr/local/bin/restart_nut_driver.sh
 ```
