@@ -19,7 +19,7 @@ __author__ = "Orsiris de Jong"
 __copyright__ = "Copyright (C) 2022 Orsiris de Jong"
 __description__ = "udev_monitor triggers action on plugged in devices"
 __licence__ = "BSD 3 Clause"
-__version__ = "1.2.0"
+__version__ = "1.2.1"
 __build__ = "2022110604"
 __compat__ = "python3.6+"
 
@@ -41,7 +41,8 @@ from time import sleep
 from datetime import datetime
 from configparser import ConfigParser
 
-logger = logger_get_logger("/var/log/udev_monitor.log")
+pid = os.getpid()
+logger = logger_get_logger("/var/log/udev_monitor.log", formatter_insert='PID: {}'.format(pid))
 
 TIMEOUT = 3600  # Default command timeout
 WAIT_BEFORE_CALLBACK = 2  # How many seconds before we launch our callback, so the device driver for plugged in device is properly loaded
