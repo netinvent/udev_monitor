@@ -15,6 +15,7 @@ Upon a specific event for a given device, it will execute an action.
 Setup:
 ```
 pip install udev_monitor
+```
 
 Example:
 Run script `/usr/local/bin/myscript.sh` everytime USB device 0665:5161 is added or removed
