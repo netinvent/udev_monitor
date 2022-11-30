@@ -8,7 +8,7 @@ __intname__ = "udev_monitor.setup"
 __author__ = "Orsiris de Jong"
 __copyright__ = "Copyright (C) 2022 Orsiris de Jong"
 __licence__ = "BSD 3 Clause"
-__build__ = "2022110711"
+__build__ = "2022113001"
 
 
 PACKAGE_NAME = "udev_monitor"
@@ -35,7 +35,7 @@ def _read_file(filename):
                 return file_handle.read()
         except IOError:
             # Ugly fix for missing requirements.txt file when installing via pip under Python 2
-            return "psutil\n"
+            return ""
     else:
         with open(os.path.join(here, filename), "r", encoding="utf-8") as file_handle:
             return file_handle.read()
