@@ -1,14 +1,14 @@
 #! /usr/bin/env python
 #  -*- coding: utf-8 -*-
 #
-# This file is part of command_runner package
+# This file is part of udev_monitor package
 
 
 __intname__ = "udev_monitor.setup"
 __author__ = "Orsiris de Jong"
-__copyright__ = "Copyright (C) 2022 Orsiris de Jong"
+__copyright__ = "Copyright (C) 2022-2023 Orsiris de Jong - NetInvent"
 __licence__ = "BSD 3 Clause"
-__build__ = "2022113001"
+__build__ = "2023033001"
 
 
 PACKAGE_NAME = "udev_monitor"
@@ -16,7 +16,6 @@ DESCRIPTION = "Monitor udev events like usb devices being connected, and execute
 
 import sys
 import os
-
 import pkg_resources
 import setuptools
 
@@ -78,10 +77,12 @@ def parse_requirements(filename):
 
 
 package_path = os.path.abspath(PACKAGE_NAME)
-package_file = os.path.join(package_path, "udev_monitor.py")
+package_file = os.path.join(package_path, "__main__.py")
 metadata = get_metadata(package_file)
 requirements = parse_requirements(os.path.join(package_path, "requirements.txt"))
 long_description = _read_file("README.md")
+
+console_scripts = ["udev_monitor = udev_monitor.__main__:main"]
 
 setuptools.setup(
     name=PACKAGE_NAME,
@@ -117,9 +118,12 @@ setuptools.setup(
         "event",
         "connect",
         "plugged",
+        "plug and pray"
     ],
     long_description=long_description,
     long_description_content_type="text/markdown",
     python_requires=">=3.6",
-    scripts=['udev_monitor/udev_monitor.py']
+        entry_points={
+        "console_scripts": console_scripts,
+    },
 )

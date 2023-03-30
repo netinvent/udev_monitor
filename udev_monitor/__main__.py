@@ -16,11 +16,11 @@ Versioning semantics:
 
 __intname__ = "udev_monitor"
 __author__ = "Orsiris de Jong"
-__copyright__ = "Copyright (C) 2022 Orsiris de Jong"
+__copyright__ = "Copyright (C) 2022-2023 Orsiris de Jong - NetInvent"
 __description__ = "udev_monitor triggers action on plugged in devices"
 __licence__ = "BSD 3 Clause"
-__version__ = "1.2.2"
-__build__ = "2022110605"
+__version__ = "1.3.0"
+__build__ = "2023033002"
 __compat__ = "python3.6+"
 
 
@@ -32,7 +32,8 @@ from argparse import ArgumentParser
 try:
     from pyudev import Context, Monitor
 except ModuleNotFoundError:
-    print("Cannot load pyudev module")
+    print("Missing pyudev module. Cannot continue")
+    sys.exit(1)
 import logging
 from command_runner import command_runner
 from ofunctions.threading import threaded, no_flood
@@ -135,7 +136,7 @@ def callback(device, action):
         logger.info("No action configured.")
 
 
-if __name__ == "__main__":
+def interface():
     if os.name == "nt":
         print("This program is designed to run on Linux with udev only.")
         sys.exit(4)
@@ -253,13 +254,18 @@ if __name__ == "__main__":
         filters = [filter.strip() for filter in filters.split(",")]
     if udev_events:
         udev_events = [udev_event.strip() for udev_event in udev_events.split(",")]
+    if not devices:
+        logger.error("Cannot setup monitor. No devices given")
+        sys.exit(2)
+    monitor_udev(devices, udev_events, callback, action, filters)
 
+def main():
     try:
-        monitor_udev(devices, udev_events, callback, action, filters)
+        interface()
     except KeyboardInterrupt:
         logger.info("Program interrupted by CTRL+C")
-        sys.exit(3)
+        sys.exit(200)
     except Exception as exc:
         logger.error("Program failed with error %s" % exc)
         logger.error("Trace:", exc_info=True)
-        sys.exit(200)
+        sys.exit(201)

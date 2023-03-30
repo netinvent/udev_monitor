@@ -3,5 +3,4 @@
 #
 # This file is part of udev_monitor
 
-
-from udev_monitor import *
+# Placeholder so this directory becomes a package
