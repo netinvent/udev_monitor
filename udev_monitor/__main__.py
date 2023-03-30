@@ -62,7 +62,6 @@ def monitor_udev(
     action: str,
     filters: List[str],
 ):
-
     logger.info(
         "Setting up udev events {} for devices {} with filters {} and action {}".format(
             udev_events, devices_to_monitor, filters, action
@@ -268,6 +267,7 @@ def main():
         logger.error("Program failed with error %s" % exc)
         logger.error("Trace:", exc_info=True)
         sys.exit(201)
+
 
 if __name__ == "__main__":
     main()
