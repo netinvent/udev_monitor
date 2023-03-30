@@ -12,7 +12,7 @@ __build__ = "2023033001"
 
 
 PACKAGE_NAME = "udev_monitor"
-DESCRIPTION = "Monitor udev events like usb devices being connected, and execute actions upon evnet"
+DESCRIPTION = "Monitor udev events like usb devices being connected, and execute actions upon event"
 
 import sys
 import os
