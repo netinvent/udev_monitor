@@ -34,12 +34,10 @@ try:
 except ModuleNotFoundError:
     print("Missing pyudev module. Cannot continue")
     sys.exit(1)
-import logging
 from command_runner import command_runner
 from ofunctions.threading import threaded, no_flood
 from ofunctions.logger_utils import logger_get_logger
 from time import sleep
-from datetime import datetime
 from configparser import ConfigParser
 
 pid = os.getpid()
@@ -259,6 +257,7 @@ def interface():
         sys.exit(2)
     monitor_udev(devices, udev_events, callback, action, filters)
 
+
 def main():
     try:
         interface()
@@ -269,3 +268,6 @@ def main():
         logger.error("Program failed with error %s" % exc)
         logger.error("Trace:", exc_info=True)
         sys.exit(201)
+
+if __name__ == "__main__":
+    main()
