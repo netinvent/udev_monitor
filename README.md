@@ -26,7 +26,7 @@ This is a realworld example to detect most USB UPS and execute a script upon plu
 
 Run script `/usr/local/bin/restart_nut_driver.sh` with argument `0665:5161` everytime USB device with vendor id 0665 and product id 5161 is added or removed
 ```
-udev_monitor --devices 0665:5161 --udev-actions add,remove --filters=usb --action /usr/local/bin/restart_nut_driver.sh
+udev_monitor --devices 0665:5161 --udev-events add,remove --filters=usb --action /usr/local/bin/restart_nut_driver.sh
 ```
 
 # Full usage
@@ -34,7 +34,7 @@ udev_monitor --devices 0665:5161 --udev-actions add,remove --filters=usb --actio
 --devices           List of comma separated devices to monitor. Example:
                     '0665:5161, 8086:1234'
                     If no devices are given, all devices are monitored.
---udev-actions      List of udev events which should trigger and action
+--udev-events      List of udev events which should trigger and action
                     Valid actions are: 'add', 'remove', 'change', 'online', 'offline'. Defaults to 'add, change, online'
 --filters           List of comma separated udev monitor filters. Filters are applied with OR logic. Example:
                     'usb,tty'
